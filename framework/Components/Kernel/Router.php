@@ -4,7 +4,6 @@
 namespace TestFramework\Components\Kernel;
 
 
-//use http\Env\Response;
 use TestFramework\Components\HttpComponents\Request;
 use TestFramework\Components\Controller\FrameworkController;
 
@@ -35,11 +34,8 @@ final class Router
      */
     public function __construct()
     {
-        //D:\Program Files\OSPanel\domains\test_project\routes\routes.php
-        //$routesPath = ROOT . '/routes/routes.php';
-        //require_once(ROOT . '/routes/routes.php');
         $this->routes = require_once(ROOT . '/routes/routes.php');
-        $this->requestUri = $_SERVER['REQUEST_METHOD'] . trim($_SERVER["REQUEST_URI"]); //maybe empty?
+        $this->requestUri = $_SERVER['REQUEST_METHOD'] . trim($_SERVER["REQUEST_URI"]);
     }
 
     public function run(): void
@@ -53,18 +49,6 @@ final class Router
                 $this->controllerName = array_shift($segments);
                 $this->actionName = array_shift($segments);
                 $includeController = $this->includeController(new Request($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER), $segments);
-                var_dump($includeController);
-
-//                echo "<pre>";
-//                $segments = explode('@', $fullPath);
-//                $this->controllerName = array_shift($segments);
-//                $this->actionName = array_shift($segments);
-//                //$this->includeController($segments);
-//                var_dump($fullPath);
-//                var_dump($this->controllerName);
-//                var_dump($this->actionName);
-//                var_dump($segments);
-//                die;
             }
         }
 
@@ -103,13 +87,5 @@ final class Router
     {
         $reflectionMethod = new \ReflectionMethod($this->controllerName, $this->actionName);
         $reflectionMethod->invokeArgs($controller, $params);
-    }
-
-    private function reflection(): void
-    {
-        $reflection = new \ReflectionClass(Employee::class);
-        $property = $reflection->getProperty('id');
-        $property->setAccessible(true);
-        $property->setValue($employee, new Id(25));
     }
 }

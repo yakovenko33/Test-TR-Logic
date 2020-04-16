@@ -1,9 +1,6 @@
 <?php
-define("ROOT", $_SERVER['DOCUMENT_ROOT']);
-//echo "</pre>";
-////var_dump(ROOT . '/vendor/autoload.php');
-////die;
 
+require_once dirname(__DIR__) . '/config/app.php';
 require_once ROOT . '/vendor/autoload.php';
 
 use TestFramework\Components\Kernel\FrontController;
